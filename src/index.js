@@ -36,5 +36,5 @@ import "./styles.css";
  * 
  */
 
-
+let listArr = document.querySelectorAll(".list");
 

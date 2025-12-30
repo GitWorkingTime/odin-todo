@@ -1,5 +1,5 @@
 export function addList() {
-    let id = crypto.randomUUID();
+    let id = `ID-${crypto.randomUUID()}`;
     let title = "";
 
     function initializeList( listTitle ) {
