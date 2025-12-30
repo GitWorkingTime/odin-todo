@@ -22,6 +22,7 @@ body {
     justify-content: left;
     padding: 20px;
     gap: 20px;
+    overflow-x: auto;
 }
 
 .list {
@@ -49,25 +50,51 @@ body {
 
 .item {
     background-color: rgb(56, 56, 56);
-    width: 205px;
+    width: 195px;
     height: fit-content;
-    padding: 5px 10px;
+    padding: 10px 15px;
     flex-shrink: 0;
 
     font-size: 12pt;
     font-weight: 500;
     border-radius: 15px;
 
-    max-height: 150px;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.item .content {
+    padding: 0;
+}
+
+.deadline {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.deadline-background {
+    display: flex;
+    background-color: rgb(21, 22, 26);
+    padding: 5px;
+    gap: 5px;
+    align-items: center;
+    border-radius: 5px;
 }
 
 .list .title {
+    all: unset;
+    margin: 0;
     flex-shrink: 0;
     font-size: 14pt;
     font-weight: bold;
     width: 200px;
-    padding-left: 5px;
+    border-radius: 10px;
+    background-color: rgb(21, 22, 26);
+    color: whitesmoke;
+    padding: 5px 10px;
 }
 
 .btn {
