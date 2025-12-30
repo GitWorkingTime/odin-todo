@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* Page styling */
+body {
+    font-family: 'Arimo', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: rgb(128, 110, 175);
+}
+
+.header {
+    background-color: rgba(0, 0, 0, 0.50);
+    color: whitesmoke;
+    font-size: 20px;
+    font-weight: 900;
+    padding: 15px;
+    padding-left: 20px;
+}
+
+.content {
+    display: flex;
+    justify-content: left;
+    padding: 20px;
+    gap: 20px;
+}
+
+.list {
+    position: relative;
+    background-color: rgb(21, 22, 26);
+    color: whitesmoke;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 15px;
+
+    width: 225px;
+    max-height: 700px;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.item {
+    background-color: rgb(56, 56, 56);
+    width: 205px;
+    height: fit-content;
+    padding: 5px 10px;
+    flex-shrink: 0;
+
+    font-size: 12pt;
+    font-weight: 500;
+    border-radius: 15px;
+
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.list .title {
+    flex-shrink: 0;
+    font-size: 14pt;
+    font-weight: bold;
+    width: 200px;
+    padding-left: 5px;
+}
+
+.btn {
+    all: unset;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    color: whitesmoke;
+
+    gap: 2px;
+    font-weight: 500;
+    padding: 5px 10px;
+
+    border-radius: 10px;
+    width: 205px;
+}
+
+.btn:hover {
+    background-color: rgb(56, 56, 56);
+}
+
+.btn img {
+    filter: invert(100%);
+}
+
+.btn.add-list {
+    background-color: rgba(184, 168, 209, 0.4);
+    height: fit-content;
+    flex-shrink: 0;
+    padding: 5px 20px;
+    border-radius: 15px;
+    font-weight: 600;
+    width: 225px;
+}
+
+.btn.add-list:hover {
+    background-color: rgba(142, 130, 163, 0.75);
+}
