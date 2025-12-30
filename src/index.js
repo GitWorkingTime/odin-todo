@@ -20,12 +20,6 @@ import "./styles.css";
  *      - Description
  *      - Deadline
  *      - Checkmark complete
- *      - Includes a checklist
- *          - Checkbox
- *          - Items
- *          - Edit title and tasks
- *          - Progress bar
- *          - Indicator of how much is completed
  * 
  * Functions:
  *  - Create list
@@ -38,9 +32,9 @@ import "./styles.css";
  *      - Edit title
  *      - Edit description
  *      - Edit deadline
- *      - Edit checklist
  *      - Edit completed
  * 
  */
+
 
 
