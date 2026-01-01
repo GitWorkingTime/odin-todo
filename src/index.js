@@ -1,5 +1,7 @@
 // Entry Point script
 import "./styles.css";
+import "./scripts/add-project.js";
+import { toggleProjectModal } from "./scripts/add-project.js";
 
 /*
  * To-Do list setup:
@@ -37,3 +39,28 @@ import "./styles.css";
  * 
  */
 
+let projectArr = [
+    { id: "default", title: "default" }
+];
+
+let taskArr = [
+    { project: "default", title: "Lorem Ipsum", description: "Lorem Ipsum", deadline: "01/01/2025", priority: "high" } 
+];
+
+const btns = document.querySelectorAll("button");
+btns.forEach( button => {
+    button.addEventListener("click", (evt) => {
+        if(evt.target.id == "add-project") {
+            toggleProjectModal();
+        }
+    });
+})
+
+const modalProjectExit = document.querySelector("#exit-project");
+modalProjectExit.addEventListener("click", (evt) => {
+    toggleProjectModal();
+});
+
+
+
+  
