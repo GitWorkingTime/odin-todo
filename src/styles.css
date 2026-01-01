@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap');
+
+:root {
+    --outline: rgba(0, 0, 0, 0.25);
+    --primary: #B2A8D3;
+
+    --high-back: #f7877f9d;
+    --high-primary: #FA2719;
+
+    --med-back: #f1ce99a2;
+    --med-primary: #FAA525;
+
+    --low-back: #b7faaf9d;
+    --low-primary: #58FA45;
+}
+
+body {
+    font-family: "Google Sans", sans-serif;
+    background-color: rgb(255, 248, 248);
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+}
+
+header {
+    background-color: white;
+    padding: 20px;
+    border-bottom: 2px var(--outline)  solid;
+
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--primary);
+
+    display: flex;
+    gap: 5px;
+    height: 4vh;
+}
+
+.page {
+    display: flex;
+    width: 100vw;
+    height: 91vh;
+
+    gap: 100px;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    padding: 10px;
+
+    background-color: white;
+    
+    border-right: 2px var(--outline) solid;
+
+    width: 200px;
+    height: calc(100% - 20px);
+}
+
+.project {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 10px 20px;
+
+    background-color: var(--primary);
+    color: white;
+    
+    border-radius: 10px;
+
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+}
+
+.add-project {
+    all: unset;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+
+    background-color: var(--primary);
+    color: white;
+
+    font-size: 20px;
+    font-weight: bold;
+    
+    padding: 10px 20px;
+
+    border-radius: 10px;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+
+    padding: 10px;
+
+    width: 75vw;
+    height: calc(100% - 20px);
+
+    background-color: white;
+
+    border-right: 2px var(--outline) solid;
+    border-left: 2px var(--outline) solid;
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 20px;
+
+    padding: 10px;
+
+    width: calc(100% - 20px);
+    height: fit-content;
+
+    border: 2px var(--outline) solid;
+    border-radius: 20px;
+
+    font-size: 20px;
+}
+
+.task>.left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.priority {    
+    padding: 10px 30px;
+
+    border-radius: 20px;
+
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.high {
+    background-color: var(--high-back);
+    color: var(--high-primary);
+    border: 2px var(--high-primary) solid;
+}
+
+.med {
+    background-color: var(--med-back);
+    color: var(--med-primary);
+    border: 2px var(--med-primary) solid;
+}
+
+.low {
+    background-color: var(--low-back);
+    color: var(--low-primary);
+    border: 2px var(--low-primary) solid;
+}
+
+.left>.icons {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    background-color: var(--primary);
+    
+    padding: 10px 20px;
+
+    border-radius: 20px;
+    
+}
