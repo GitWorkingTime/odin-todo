@@ -46,17 +46,40 @@
             </button>
         </div>
     </div>
-    <div class="modal project" id="modal-project">
+    <div class="modal-project" id="modal-project">
         <div class="header">
             Add Project:
             <div class="exit" id="exit-project">X</div>
         </div>
-        <form>
+        <form id="form-add-project">
             <label for="project-title">Title:</label>
             <input type="text" placeholder="default" id="project-title">
         </form>
     </div>
-
+    <div class="modal-task" id="modal-task">
+        <div class="header">
+            Add Task:
+            <div class="exit" id="exit-task">X</div>
+        </div>
+        <form id="form-add-task">
+            <label for="title">Title:</label>
+            <input type="text" id="title" placeholder="New title">
+            <label for="desc">Description:</label>
+            <textarea type="text" id="desc" placeholder="Notes..."></textarea>
+            <label for="priority">Priority:</label>
+            <select id="priority">
+                <option value="high">High</option>
+                <option value="med">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <label for="due">Deadline:</label>
+            <input type="date" id="due">
+            <button type="submit" class="submit-task">
+                <img src="./icons/add_box_24dp_FFFFFF_FILL0_wght400_GRAD0_opsz24.svg" alt="add box">
+                Create task
+            </button>
+        </form>
+    </div>
 </body>
 </html>
 

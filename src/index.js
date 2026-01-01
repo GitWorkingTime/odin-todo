@@ -2,6 +2,7 @@
 import "./styles.css";
 import "./scripts/add-project.js";
 import { toggleProjectModal } from "./scripts/add-project.js";
+import { toggleTaskModal } from "./scripts/add-item.js";
 
 /*
  * To-Do list setup:
@@ -52,6 +53,8 @@ btns.forEach( button => {
     button.addEventListener("click", (evt) => {
         if(evt.target.id == "add-project") {
             toggleProjectModal();
+        } else if (evt.target.id == "add-task") {
+            toggleTaskModal();
         }
     });
 })
@@ -61,6 +64,10 @@ modalProjectExit.addEventListener("click", (evt) => {
     toggleProjectModal();
 });
 
+const modalTaskExit = document.querySelector('#exit-task');
+modalTaskExit.addEventListener("click", (evt) => {
+    toggleTaskModal();
+});
 
 
   

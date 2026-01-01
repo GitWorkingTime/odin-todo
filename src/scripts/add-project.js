@@ -4,7 +4,7 @@ export function createProject( title ) {
     return { id, projectTitle };
 }
 
-export function toggleProjectModal( modalOpen ) {
+export function toggleProjectModal( ) {
     const modal = document.querySelector("#modal-project");
     const overlay = document.querySelector("#overlay");
     let modalClasses = modal.classList;
@@ -12,5 +12,4 @@ export function toggleProjectModal( modalOpen ) {
 
     modalClasses.toggle("show");
     overlayClasses.toggle("show");
-    return !modalOpen;
 }
