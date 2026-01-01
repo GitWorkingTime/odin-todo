@@ -45,7 +45,7 @@ let projectArr = [
 ];
 
 let taskArr = [
-    { project: "default", title: "Lorem Ipsum", description: "Lorem Ipsum", deadline: "01/01/2025", priority: "high" } 
+    { project: "default", title: "Lorem Ipsum", description: "Lorem Ipsum", deadline: "01/01/2025", priority: "high", completed: false } 
 ];
 
 const btns = document.querySelectorAll("button");
@@ -67,6 +67,24 @@ modalProjectExit.addEventListener("click", (evt) => {
 const modalTaskExit = document.querySelector('#exit-task');
 modalTaskExit.addEventListener("click", (evt) => {
     toggleTaskModal();
+});
+
+const completed = document.querySelectorAll(".task");
+completed.forEach( check => {
+    check.addEventListener("click", (evt) => {
+        let parentID = check.id;
+        console.log(parentID);
+        if(evt.target.id == "completed") {
+            const checkbox = evt.target;
+            const title = document.querySelector(`#${parentID} .title`);
+            let titleClasses = title.classList;
+            if(checkbox.checked) {
+                titleClasses.add("completed");
+            } else {
+                titleClasses.remove("completed");
+            }
+        }
+    });
 });
 
 
