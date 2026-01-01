@@ -33,8 +33,7 @@ import "./styles.css";
  *      - Edit description
  *      - Edit deadline
  *      - Edit completed
+ *      - Priority
  * 
  */
-
-let listArr = document.querySelectorAll(".list");
 
