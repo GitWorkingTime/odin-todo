@@ -182,3 +182,14 @@ header {
     border-radius: 20px;
     
 }
+
+.calendar {
+    background-color: rgb(230, 230, 230);
+
+    padding: 10px;
+    
+    font-size: 15px;
+
+    border-radius: 20px;
+    border: 2px var(--outline) solid
+}
