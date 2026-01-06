@@ -3,7 +3,6 @@ export function completedInit() {
     completed.forEach( check => {
         check.addEventListener("click", (evt) => {
             let parentID = check.id;
-            console.log(parentID);
             if(evt.target.id == "completed") {
                 const checkbox = evt.target;
                 const title = document.querySelector(`#${parentID} .title`);

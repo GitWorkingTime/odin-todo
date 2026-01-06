@@ -77,6 +77,12 @@ header {
     font-weight: bold;
 }
 
+.project-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
 .icons {
     display: flex;
     align-items: center;
@@ -125,6 +131,12 @@ header {
 
     border-right: 2px var(--outline) solid;
     border-left: 2px var(--outline) solid;
+}
+
+.task-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .task {

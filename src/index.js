@@ -4,6 +4,8 @@ import { ProjectObject, toggleProjectModal } from "./scripts/projects/add-projec
 import { toggleTaskModal, TaskObject } from "./scripts/items/add-item.js";
 import { modalInit } from "./scripts/modal-manager.js";
 import { completedInit } from "./scripts/items/completed.js";
+import { appendTask } from "./scripts/items/dom-item.js";
+import { appendProject } from "./scripts/projects/dom-project.js";
 
 /*
  * To-Do list setup:
@@ -60,12 +62,13 @@ taskForm.addEventListener("submit", (evt) => {
     let formData = new FormData(evt.target);
     let formObj = Object.fromEntries(formData.entries());
     console.log(formObj);
-    let newTask = new TaskObject(currProjectView.id, formObj.title, formObj.description, formObj.priority, formObj.deadline);
+    let newTask = new TaskObject(currProjectView.uuid, formObj.title, formObj.description, formObj.priority, formObj.deadline);
     taskArr.push(newTask);
     console.log(taskArr);
 
     taskForm.reset();
     toggleTaskModal();
+    appendTask(taskArr, currProjectView.uuid);
 });
 
 const projectForm = document.querySelector("#form-add-project");
@@ -79,6 +82,7 @@ projectForm.addEventListener("submit", (evt) => {
 
     projectForm.reset();
     toggleProjectModal();
+    appendProject(projectArr);
 });
 
   
