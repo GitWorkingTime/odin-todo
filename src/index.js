@@ -1,8 +1,9 @@
 // Entry Point script
 import "./styles.css";
-import "./scripts/add-project.js";
-import { toggleProjectModal } from "./scripts/add-project.js";
-import { toggleTaskModal } from "./scripts/add-item.js";
+import { ProjectObject, toggleProjectModal } from "./scripts/projects/add-project.js";
+import { toggleTaskModal, TaskObject } from "./scripts/items/add-item.js";
+import { modalInit } from "./scripts/modal-manager.js";
+import { completedInit } from "./scripts/items/completed.js";
 
 /*
  * To-Do list setup:
@@ -41,51 +42,43 @@ import { toggleTaskModal } from "./scripts/add-item.js";
  */
 
 let projectArr = [
-    { id: "default", title: "default" }
+    { uuid: "default", title: "default" }
 ];
+
+let currProjectView = projectArr[0];
 
 let taskArr = [
-    { project: "default", title: "Lorem Ipsum", description: "Lorem Ipsum", deadline: "01/01/2025", priority: "high", completed: false } 
+    { uuid: "test", project: "default", title: "Lorem Ipsum", description: "Lorem Ipsum", deadline: "01/01/2025", priority: "high", completed: false } 
 ];
 
-const btns = document.querySelectorAll("button");
-btns.forEach( button => {
-    button.addEventListener("click", (evt) => {
-        if(evt.target.id == "add-project") {
-            toggleProjectModal();
-        } else if (evt.target.id == "add-task") {
-            toggleTaskModal();
-        }
-    });
-})
+modalInit();
+completedInit();
 
-const modalProjectExit = document.querySelector("#exit-project");
-modalProjectExit.addEventListener("click", (evt) => {
-    toggleProjectModal();
-});
+const taskForm = document.querySelector("#form-add-task");
+taskForm.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    let formData = new FormData(evt.target);
+    let formObj = Object.fromEntries(formData.entries());
+    console.log(formObj);
+    let newTask = new TaskObject(currProjectView.id, formObj.title, formObj.description, formObj.priority, formObj.deadline);
+    taskArr.push(newTask);
+    console.log(taskArr);
 
-const modalTaskExit = document.querySelector('#exit-task');
-modalTaskExit.addEventListener("click", (evt) => {
+    taskForm.reset();
     toggleTaskModal();
 });
 
-const completed = document.querySelectorAll(".task");
-completed.forEach( check => {
-    check.addEventListener("click", (evt) => {
-        let parentID = check.id;
-        console.log(parentID);
-        if(evt.target.id == "completed") {
-            const checkbox = evt.target;
-            const title = document.querySelector(`#${parentID} .title`);
-            let titleClasses = title.classList;
-            if(checkbox.checked) {
-                titleClasses.add("completed");
-            } else {
-                titleClasses.remove("completed");
-            }
-        }
-    });
-});
+const projectForm = document.querySelector("#form-add-project");
+projectForm.addEventListener("submit", (evt) => {
+    evt.preventDefault();
+    let formData = new FormData(evt.target);
+    let formObj = Object.fromEntries(formData.entries());
+    let newProject = new ProjectObject(formObj.title);
+    projectArr.push(newProject);
+    console.log(projectArr);
 
+    projectForm.reset();
+    toggleProjectModal();
+});
 
   

@@ -271,6 +271,13 @@ header {
     border-radius: 20px;
 }
 
+.modal-project form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
 .modal-project.show { visibility: visible; }
 
 .modal-project .header,

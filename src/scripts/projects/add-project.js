@@ -1,9 +1,3 @@
-export function createProject( title ) {
-    let id = crypto.randomUUID();
-    let projectTitle = title;
-    return { id, projectTitle };
-}
-
 export function toggleProjectModal( ) {
     const modal = document.querySelector("#modal-project");
     const overlay = document.querySelector("#overlay");
@@ -12,4 +6,11 @@ export function toggleProjectModal( ) {
 
     modalClasses.toggle("show");
     overlayClasses.toggle("show");
+}
+
+export class ProjectObject {
+    constructor( title ) {
+        this.uuid = `p-${crypto.randomUUID()}`;
+        this.title = title;
+    }
 }
