@@ -58,7 +58,7 @@ export function appendTask(taskArr, projectID) {
             leftSide.appendChild(deadline);
 
             const icons = document.createElement("div");
-            icons.setAttribute("class", "icons");
+            icons.setAttribute("class", "task-icons");
 
             for(let i = 0; i < 3; ++i ) {
                 const iconChild = new Image();

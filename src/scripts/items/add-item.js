@@ -1,6 +1,7 @@
 import { format, parse } from 'date-fns'
 import { appendTask } from './dom-item';
-import { registerIcons } from '../icon-manager';
+import { registerProjectIcons, registerTaskIcons } from '../icon-manager';
+import { currProjectView } from '../..';
 
 let title = "";
 let description = "";
@@ -37,7 +38,7 @@ export function getTaskInfo(task) {
     deadline = task.deadline;
 }
 
-export function initEditTaskForm( taskArr, projectArr ) {
+export function initEditTaskForm( taskArr, projectArr, currProjectView ) {
     const form =  document.querySelector("#form-edit-task");
     form.addEventListener("submit", (evt) => {
         evt.preventDefault();
@@ -46,10 +47,10 @@ export function initEditTaskForm( taskArr, projectArr ) {
         currentTask.title = formObj.title;
         currentTask.description = formObj.description;
         currentTask.priority = formObj.priority;
+        currentTask.project = currProjectView.id;
         let dateObj = parse(formObj.deadline, 'yyyy-MM-dd', new Date());
         currentTask.deadline = format(dateObj, 'MM/dd/yyyy');        
         appendTask(taskArr, currentTask.project);
-        registerIcons(taskArr, projectArr);
         toggleEditTaskModal();
     });
 }

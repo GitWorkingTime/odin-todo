@@ -1,4 +1,4 @@
-import { registerIcons } from "../icon-manager";
+import { registerProjectIcons, registerTaskIcons } from "../icon-manager";
 import { appendProject } from "./dom-project";
 
 let currentProject = null;
@@ -38,7 +38,6 @@ export function initEditProjectForm( taskArr, projectArr ) {
 
         currentProject.title = formObj.title;
         appendProject(projectArr);
-        registerIcons(taskArr, projectArr);
         toggleEditProjectModal();
     });
 }

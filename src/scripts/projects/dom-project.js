@@ -25,11 +25,12 @@ export function appendProject(projectArr) {
 
         const title = document.createElement("div");
         title.setAttribute("class", "title");
+        title.setAttribute("id", `${projectID}`);
         title.textContent = projectArr[i].title;
         projectEl.appendChild(title);
 
         const icons = document.createElement("div");
-        icons.setAttribute("class", "icons");
+        icons.setAttribute("class", "project-icons");
 
         for( let i = 0; i < 2; ++i ) {
             const iconChild = new Image();

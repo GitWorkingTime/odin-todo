@@ -88,7 +88,8 @@ header {
     word-break: break-all;
 }
 
-.icons {
+.project-icons,
+.task-icons {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -197,7 +198,7 @@ header {
     border: 2px var(--low-primary) solid;
 }
 
-.left>.icons {
+.left>.task-icons {
     display: flex;
     justify-content: space-evenly;
     align-items: center;

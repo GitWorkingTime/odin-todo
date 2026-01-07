@@ -2,59 +2,85 @@ import { getTaskInfo, setTaskdetails, setTaskForm, toggleEditTaskModal } from ".
 import { appendTask } from "./items/dom-item";
 import { setProjectDetails, setProjectForm, toggleEditProjectModal } from "./projects/add-project";
 import { appendProject } from "./projects/dom-project";
-import { currProjectView } from "../index";
+import { currProjectView, setCurrProjectView } from "../index";
+import { parse } from "date-fns";
 
 let type = "";
 export let uuid = "";
 
-export function registerIcons(taskArr, projectArr) {
-    const icons = document.querySelectorAll(".icons");
+export function registerTaskIcons( taskArr, currProjectViewID ) {
+    const icons = document.querySelectorAll(".task-icons");
     icons.forEach( iconContainer => {
-        iconContainer.removeEventListener("click", () => {});
         iconContainer.addEventListener("click", (evt) => {
-            let parsedID = evt.target.id.split(' ');
-
-            uuid = parsedID[0];
-            type = parsedID[1];
-
-            switch(type) {
-                case 'delete':
-                    if(uuid.includes('t-')) {
-                        deleteTask(taskArr, uuid);
-                    } else if(uuid.includes('p-')) {
-                        if( projectArr.length > 1) {
-                            deleteProject(projectArr, uuid);
-                        }
-                    }
-                    break;
-                case 'edit':
-                    if(uuid.includes('t-')) {
-                        let task = taskArr[taskArr.findIndex(item => item.uuid === uuid)];
+            let iconObj = parseIcon(evt.target);
+            if(iconObj.uuid.includes('t-')) {
+                switch(iconObj.type) {
+                    case 'delete':
+                        deleteTask(taskArr, iconObj.uuid);
+                        appendTask(taskArr, currProjectViewID);
+                        break;
+                    case 'edit':
+                        let task = taskArr[taskArr.findIndex(item => item.uuid === iconObj.uuid)];
                         toggleEditTaskModal();
                         getTaskInfo(task);
                         setTaskForm();
                         setTaskdetails(task);
-                    } else if (uuid.includes('p-')) {
+                        break;
+                    case 'move':
+                        break;
+                }
+            }
+        });
+    });
+}
+
+export function registerProjectIcons( taskArr, projectArr, currProjectViewID ) {
+    const icons = document.querySelectorAll(".project-icons");
+    icons.forEach( iconContainer => {
+        iconContainer.addEventListener("click", (evt) => {
+            let iconObj = parseIcon(evt.target);
+            if(iconObj.uuid.includes('p-')) {
+                switch(iconObj.type) {
+                    case 'delete':
+                        if( projectArr.length > 1 ) {
+                            let prevProjectIndex = projectArr.findIndex(item => item.uuid === iconObj.uuid) - 1;
+                            setCurrProjectView(prevProjectIndex);
+                            appendTask(taskArr, currProjectViewID);
+
+                            deleteProject(projectArr, iconObj.uuid);
+                            appendProject(projectArr);
+                            for(let i = 0; i < taskArr.length; ++i ) {
+                                if(taskArr[i].project == iconObj.uuid) {
+                                    deleteTask(taskArr, iconObj.uuid);
+                                }
+                            }                            
+                        }
+                        break;
+                    case 'edit':
+                        let project = projectArr[projectArr.findIndex(item => item.uuid === iconObj.uuid)];
                         toggleEditProjectModal();
-                        setProjectDetails(currProjectView);
+                        setProjectDetails(project);
                         setProjectForm();
-                    }
-                    break;
-                case 'move':
-                    break;
+                        break;
+                }
             }
         })
     });
 }
 
+function parseIcon( element ) {
+    let parsedID = element.id.split(' ');
+    let uuid = parsedID[0];
+    let type = parsedID[1];
+    return { uuid, type };
+}
+
 function deleteTask(taskArr, uuid) {
     let index = taskArr.findIndex(item => item.uuid === uuid );
     taskArr.splice(index, 1);
-    appendTask(taskArr);
 }
 
 function deleteProject(projectArr, uuid ) {
     let index = projectArr.findIndex(item => item.uuid === uuid );
     projectArr.splice(index, 1);
-    appendProject(projectArr);
 }

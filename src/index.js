@@ -6,7 +6,7 @@ import { modalInit } from "./scripts/modal-manager.js";
 import { completedInit } from "./scripts/items/completed.js";
 import { appendTask } from "./scripts/items/dom-item.js";
 import { appendProject } from "./scripts/projects/dom-project.js";
-import { registerIcons } from "./scripts/icon-manager.js";
+import { registerTaskIcons, registerProjectIcons } from "./scripts/icon-manager.js";
 import { parse } from "date-fns";
 
 /*
@@ -66,9 +66,10 @@ modalInit();
 completedInit();
 appendProject(projectArr);
 appendTask(taskArr, projectArr[0].uuid);
-registerIcons(taskArr, projectArr);
-initEditTaskForm(taskArr, projectArr);
+initEditTaskForm(taskArr, projectArr, currProjectView);
 initEditProjectForm(taskArr, projectArr);
+registerProjectIcons( taskArr, projectArr, currProjectView.uuid );
+registerTaskIcons( taskArr );
 
 const taskForm = document.querySelector("#form-add-task");
 taskForm.addEventListener("submit", (evt) => {
@@ -78,12 +79,11 @@ taskForm.addEventListener("submit", (evt) => {
     let dateObj = parse(formObj.deadline, 'yyyy-MM-dd', new Date());
     let newTask = new TaskObject(currProjectView.uuid, formObj.title, formObj.description, formObj.priority, dateObj);
     taskArr.push(newTask);
-    console.log(taskArr);
 
     taskForm.reset();
     toggleTaskModal();
     appendTask(taskArr, currProjectView.uuid);
-    registerIcons(taskArr, projectArr);
+    registerTaskIcons(taskArr, currProjectView.uuid);
 });
 
 const projectForm = document.querySelector("#form-add-project");
@@ -93,16 +93,30 @@ projectForm.addEventListener("submit", (evt) => {
     let formObj = Object.fromEntries(formData.entries());
     let newProject = new ProjectObject(formObj.title);
     projectArr.push(newProject);
-    console.log(projectArr);
 
     projectForm.reset();
     toggleProjectModal();
     appendProject(projectArr);
-    registerIcons(taskArr, projectArr);
+    registerProjectIcons(taskArr, projectArr, currProjectView.uuid);
 });
 
-export function setCurrProjectView( project ) {
-    currProjectView = project;
-    console.log(currProjectView);
-} 
+const projectList = document.querySelector(".project-list");
+projectList.addEventListener("click", (evt) => {
+    if(evt.target.id.includes(`p-`)) {
+        for(let i = 0; i < projectArr.length; ++i ) {
+            if( projectArr[i].uuid == evt.target.id ) {
+                currProjectView = projectArr[i];
+                break;
+            }
+        }
+    }
+    appendTask(taskArr, currProjectView.uuid);
+    registerTaskIcons(taskArr, currProjectView.uuid);
+    registerProjectIcons(taskArr, projectArr, currProjectView.uuid);
+});
+
+export function setCurrProjectView( index ) {
+    currProjectView = projectArr[index];
+}
+
   
