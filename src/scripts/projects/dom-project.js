@@ -18,9 +18,10 @@ export function appendProject(projectArr) {
     projectList.textContent = "";
 
     for( let i = 0; i < projectArr.length; ++i ) {
+        let projectID = projectArr[i].uuid;
         const projectEl = document.createElement("div");
         projectEl.setAttribute("class", "project");
-        projectEl.setAttribute("id", `p-${projectArr[i].uuid}`);
+        projectEl.setAttribute("id", `${projectID}`);
 
         projectEl.textContent = projectArr[i].title;
 
@@ -33,7 +34,7 @@ export function appendProject(projectArr) {
             iconChild.alt = iconNames[i];
             iconChild.height = iconSide;
             iconChild.width = iconSide;
-            iconChild.id = iconNames[i];
+            iconChild.id = `${projectID} ${iconNames[i]}`;
             icons.appendChild(iconChild);
         }
         projectEl.appendChild(icons);

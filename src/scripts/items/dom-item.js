@@ -28,9 +28,11 @@ export function appendTask(taskArr, projectID) {
 
     for( let i = 0; i < taskArr.length; ++i ) {
         if(taskArr[i].project == projectID) {
+            let taskID = taskArr[i].uuid;
+
             const taskEl = document.createElement("div");
             taskEl.setAttribute("class", "task");
-            taskEl.setAttribute("id", taskArr[i].uuid);
+            taskEl.setAttribute("id", taskID);
 
             const completed = document.createElement("input");
             completed.setAttribute("type", "checkbox");
@@ -64,7 +66,7 @@ export function appendTask(taskArr, projectID) {
                 iconChild.alt = iconNames[i];
                 iconChild.height = iconSide;
                 iconChild.width = iconSide;
-                iconChild.id = iconNames[i];
+                iconChild.id = `${taskID} ${iconNames[i]}`;
                 icons.appendChild(iconChild);
             }
 

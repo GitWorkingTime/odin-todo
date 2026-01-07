@@ -85,6 +85,29 @@
             </button>
         </form>
     </div>
+    <div class="modal-edit-task" id="modal-edit-task">
+        <div class="header">
+            Task:
+            <div class="exit" id="exit-edit-task">X</div>
+        </div>
+        <form id="form-edit-task" method="post">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title" placeholder="New title" required>
+            <label for="desc">Description:</label>
+            <textarea type="text" name="description" id="desc" placeholder="Notes..."></textarea>
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <option value="high">High</option>
+                <option value="med">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <label for="due">Deadline:</label>
+            <input type="date" name="deadline" id="due" required>
+            <button type="submit" class="submit-task">
+                save
+            </button>
+        </form>
+    </div>
 </body>
 </html>
 
