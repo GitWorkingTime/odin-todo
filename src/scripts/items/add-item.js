@@ -1,12 +1,11 @@
 import { format, parse } from 'date-fns'
 import { appendTask } from './dom-item';
-import { registerProjectIcons, registerTaskIcons } from '../icon-manager';
-import { currProjectView } from '../..';
 
 let title = "";
 let description = "";
 let priority = "";
 let deadline = "";
+let project = "";
 let currentTask = null;
 
 export function toggleTaskModal() {
@@ -31,14 +30,25 @@ export function toggleEditTaskModal() {
     overlayClasses.toggle("show");
 }
 
+export function toggleMoveTaskModal() {
+    const modal = document.querySelector("#modal-move-task");
+    const overlay = document.querySelector("#overlay");
+    let modalClasses = modal.classList;
+    let overlayClasses = overlay.classList;
+
+    modalClasses.toggle("show");
+    overlayClasses.toggle("show");
+}
+
 export function getTaskInfo(task) {
     title = task.title;
     description = task.description;
     priority = task.priority;
     deadline = task.deadline;
+    project = task.project;
 }
 
-export function initEditTaskForm( taskArr, projectArr, currProjectView ) {
+export function initEditTaskForm( taskArr, currProjectView ) {
     const form =  document.querySelector("#form-edit-task");
     form.addEventListener("submit", (evt) => {
         evt.preventDefault();
@@ -52,6 +62,20 @@ export function initEditTaskForm( taskArr, projectArr, currProjectView ) {
         currentTask.deadline = format(dateObj, 'MM/dd/yyyy');        
         appendTask(taskArr, currentTask.project);
         toggleEditTaskModal();
+    });
+}
+
+export function initMoveTaskForm( taskArr ) {
+    const form = document.querySelector("#form-move-task");
+    form.addEventListener("submit", (evt) => {
+        evt.preventDefault();
+        let prevProjectView = currentTask.project;
+        let formData = new FormData(evt.target);
+        let formObj = Object.fromEntries(formData.entries());
+        console.log(formObj);
+        currentTask.project = formObj.project;
+        appendTask(taskArr, prevProjectView);
+        toggleMoveTaskModal();
     });
 }
 

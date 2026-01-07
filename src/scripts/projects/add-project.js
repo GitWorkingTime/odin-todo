@@ -1,4 +1,3 @@
-import { registerProjectIcons, registerTaskIcons } from "../icon-manager";
 import { appendProject } from "./dom-project";
 
 let currentProject = null;
@@ -40,7 +39,7 @@ export function initEditProjectForm( taskArr, projectArr ) {
         appendProject(projectArr);
         toggleEditProjectModal();
     });
-}
+} 
 
 export function setProjectDetails( project ) {
     currentProject = project;

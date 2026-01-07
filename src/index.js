@@ -1,7 +1,7 @@
 // Entry Point script
 import "./styles.css";
 import { initEditProjectForm, ProjectObject, toggleProjectModal } from "./scripts/projects/add-project.js";
-import { toggleTaskModal, TaskObject, initEditTaskForm } from "./scripts/items/add-item.js";
+import { toggleTaskModal, TaskObject, initEditTaskForm, initMoveTaskForm } from "./scripts/items/add-item.js";
 import { modalInit } from "./scripts/modal-manager.js";
 import { completedInit } from "./scripts/items/completed.js";
 import { appendTask } from "./scripts/items/dom-item.js";
@@ -67,9 +67,10 @@ completedInit();
 appendProject(projectArr);
 appendTask(taskArr, projectArr[0].uuid);
 initEditTaskForm(taskArr, projectArr, currProjectView);
-initEditProjectForm(taskArr, projectArr);
+initEditProjectForm(taskArr, currProjectView);
+initMoveTaskForm(taskArr);
 registerProjectIcons( taskArr, projectArr, currProjectView.uuid );
-registerTaskIcons( taskArr );
+registerTaskIcons( taskArr, projectArr, currProjectView.uuid );
 
 const taskForm = document.querySelector("#form-add-task");
 taskForm.addEventListener("submit", (evt) => {
@@ -83,7 +84,7 @@ taskForm.addEventListener("submit", (evt) => {
     taskForm.reset();
     toggleTaskModal();
     appendTask(taskArr, currProjectView.uuid);
-    registerTaskIcons(taskArr, currProjectView.uuid);
+    registerTaskIcons(taskArr, projectArr, currProjectView.uuid);
 });
 
 const projectForm = document.querySelector("#form-add-project");
@@ -111,7 +112,7 @@ projectList.addEventListener("click", (evt) => {
         }
     }
     appendTask(taskArr, currProjectView.uuid);
-    registerTaskIcons(taskArr, currProjectView.uuid);
+    registerTaskIcons(taskArr, projectArr, currProjectView.uuid);
     registerProjectIcons(taskArr, projectArr, currProjectView.uuid);
 });
 

@@ -45,3 +45,14 @@ export function appendProject(projectArr) {
         projectList.appendChild(projectEl);
     }
 }
+
+export function initMoveSelection(projectArr) {
+    const selection = document.querySelector('#move-project');
+    selection.textContent = "";
+    for(let i = 0; i < projectArr.length; ++i ) {
+        const option = document.createElement("option");
+        option.setAttribute("value", projectArr[i].uuid);
+        option.textContent = projectArr[i].title;
+        selection.appendChild(option);
+    }
+}

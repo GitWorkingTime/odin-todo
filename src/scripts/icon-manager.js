@@ -1,14 +1,14 @@
-import { getTaskInfo, setTaskdetails, setTaskForm, toggleEditTaskModal } from "./items/add-item";
+import { getTaskInfo, setMoveTaskForm, setTaskdetails, setTaskForm, toggleEditTaskModal, toggleMoveTaskModal } from "./items/add-item";
 import { appendTask } from "./items/dom-item";
 import { setProjectDetails, setProjectForm, toggleEditProjectModal } from "./projects/add-project";
-import { appendProject } from "./projects/dom-project";
+import { appendProject, initMoveSelection } from "./projects/dom-project";
 import { currProjectView, setCurrProjectView } from "../index";
 import { parse } from "date-fns";
 
 let type = "";
 export let uuid = "";
 
-export function registerTaskIcons( taskArr, currProjectViewID ) {
+export function registerTaskIcons( taskArr, projectArr, currProjectViewID ) {
     const icons = document.querySelectorAll(".task-icons");
     icons.forEach( iconContainer => {
         iconContainer.addEventListener("click", (evt) => {
@@ -27,6 +27,11 @@ export function registerTaskIcons( taskArr, currProjectViewID ) {
                         setTaskdetails(task);
                         break;
                     case 'move':
+                        let moveTask = taskArr[taskArr.findIndex(item => item.uuid === iconObj.uuid)];
+                        toggleMoveTaskModal();
+                        getTaskInfo(moveTask);
+                        setTaskdetails(moveTask);
+                        initMoveSelection(projectArr);
                         break;
                 }
             }
