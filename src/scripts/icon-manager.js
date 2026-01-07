@@ -1,6 +1,8 @@
 import { getTaskInfo, setTaskdetails, setTaskForm, toggleEditTaskModal } from "./items/add-item";
 import { appendTask } from "./items/dom-item";
+import { setProjectDetails, setProjectForm, toggleEditProjectModal } from "./projects/add-project";
 import { appendProject } from "./projects/dom-project";
+import { currProjectView } from "../index";
 
 let type = "";
 export let uuid = "";
@@ -8,20 +10,21 @@ export let uuid = "";
 export function registerIcons(taskArr, projectArr) {
     const icons = document.querySelectorAll(".icons");
     icons.forEach( iconContainer => {
+        iconContainer.removeEventListener("click", () => {});
         iconContainer.addEventListener("click", (evt) => {
             let parsedID = evt.target.id.split(' ');
 
             uuid = parsedID[0];
             type = parsedID[1];
-            // console.log(type);
-            // console.log(uuid);
 
             switch(type) {
                 case 'delete':
                     if(uuid.includes('t-')) {
                         deleteTask(taskArr, uuid);
                     } else if(uuid.includes('p-')) {
-                        deleteProject(projectArr, uuid);
+                        if( projectArr.length > 1) {
+                            deleteProject(projectArr, uuid);
+                        }
                     }
                     break;
                 case 'edit':
@@ -31,6 +34,10 @@ export function registerIcons(taskArr, projectArr) {
                         getTaskInfo(task);
                         setTaskForm();
                         setTaskdetails(task);
+                    } else if (uuid.includes('p-')) {
+                        toggleEditProjectModal();
+                        setProjectDetails(currProjectView);
+                        setProjectForm();
                     }
                     break;
                 case 'move':
@@ -48,7 +55,6 @@ function deleteTask(taskArr, uuid) {
 
 function deleteProject(projectArr, uuid ) {
     let index = projectArr.findIndex(item => item.uuid === uuid );
-    console.log(index);
     projectArr.splice(index, 1);
-    appendProject(uuid);
+    appendProject(projectArr);
 }

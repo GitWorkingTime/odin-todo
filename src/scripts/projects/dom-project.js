@@ -23,7 +23,10 @@ export function appendProject(projectArr) {
         projectEl.setAttribute("class", "project");
         projectEl.setAttribute("id", `${projectID}`);
 
-        projectEl.textContent = projectArr[i].title;
+        const title = document.createElement("div");
+        title.setAttribute("class", "title");
+        title.textContent = projectArr[i].title;
+        projectEl.appendChild(title);
 
         const icons = document.createElement("div");
         icons.setAttribute("class", "icons");

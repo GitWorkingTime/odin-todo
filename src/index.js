@@ -1,6 +1,6 @@
 // Entry Point script
 import "./styles.css";
-import { ProjectObject, toggleProjectModal } from "./scripts/projects/add-project.js";
+import { initEditProjectForm, ProjectObject, toggleProjectModal } from "./scripts/projects/add-project.js";
 import { toggleTaskModal, TaskObject, initEditTaskForm } from "./scripts/items/add-item.js";
 import { modalInit } from "./scripts/modal-manager.js";
 import { completedInit } from "./scripts/items/completed.js";
@@ -49,7 +49,7 @@ let projectArr = [
     { uuid: "p-default", title: "Default" }
 ];
 
-let currProjectView = projectArr[0];
+export let currProjectView = projectArr[0];
 
 let taskArr = [
     {   uuid: "t-1", 
@@ -68,6 +68,7 @@ appendProject(projectArr);
 appendTask(taskArr, projectArr[0].uuid);
 registerIcons(taskArr, projectArr);
 initEditTaskForm(taskArr, projectArr);
+initEditProjectForm(taskArr, projectArr);
 
 const taskForm = document.querySelector("#form-add-task");
 taskForm.addEventListener("submit", (evt) => {
@@ -100,5 +101,8 @@ projectForm.addEventListener("submit", (evt) => {
     registerIcons(taskArr, projectArr);
 });
 
-
+export function setCurrProjectView( project ) {
+    currProjectView = project;
+    console.log(currProjectView);
+} 
   

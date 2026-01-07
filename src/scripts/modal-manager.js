@@ -1,4 +1,4 @@
-import { toggleProjectModal } from "./projects/add-project.js";
+import { toggleEditProjectModal, toggleProjectModal } from "./projects/add-project.js";
 import { toggleEditTaskModal, toggleTaskModal } from "./items/add-item.js";
 
 export function modalInit() {
@@ -6,6 +6,7 @@ export function modalInit() {
     const modalProject = document.querySelector("#form-add-project");
     const modalTask = document.querySelector("#form-add-task");
     const modalEditTask = document.querySelector("#form-edit-task");
+    const modalEditProject = document.querySelector("#form-edit-project");
     btns.forEach( button => {
         button.addEventListener("click", (evt) => {
             if(evt.target.id == "add-project") {
@@ -32,5 +33,11 @@ export function modalInit() {
     modalEditTaskExit.addEventListener("click", (evt) => {
         toggleEditTaskModal();
         modalEditTask.reset();
+    });
+
+    const modalEditProjectExit = document.querySelector('#exit-edit-project');
+    modalEditProjectExit.addEventListener("click", (evt) => {
+        toggleEditProjectModal();
+        modalEditProject.reset();
     });
 }
