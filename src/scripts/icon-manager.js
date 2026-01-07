@@ -34,6 +34,7 @@ export function registerTaskIcons( taskArr, projectArr, currProjectViewID ) {
                         initMoveSelection(projectArr);
                         break;
                 }
+                localStorage.setItem("taskArr", JSON.stringify(taskArr));
             }
         });
     });
@@ -68,6 +69,7 @@ export function registerProjectIcons( taskArr, projectArr, currProjectViewID ) {
                         setProjectForm();
                         break;
                 }
+                localStorage.setItem("projectArr", JSON.stringify(projectArr));
             }
         })
     });

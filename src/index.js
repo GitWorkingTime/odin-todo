@@ -45,11 +45,11 @@ import { parse } from "date-fns";
  * 
  */
 
+
 let projectArr = [
     { uuid: "p-default", title: "Default" }
 ];
 
-export let currProjectView = projectArr[0];
 
 let taskArr = [
     {   uuid: "t-1", 
@@ -62,15 +62,15 @@ let taskArr = [
     } 
 ];
 
-modalInit();
-completedInit();
-appendProject(projectArr);
-appendTask(taskArr, projectArr[0].uuid);
-initEditTaskForm(taskArr, projectArr, currProjectView);
-initEditProjectForm(taskArr, currProjectView);
-initMoveTaskForm(taskArr);
-registerProjectIcons( taskArr, projectArr, currProjectView.uuid );
-registerTaskIcons( taskArr, projectArr, currProjectView.uuid );
+export let currProjectView = projectArr[0];
+
+window.onload = function () {
+    let storedData = retrieveStorage();
+    projectArr.splice(0, projectArr.length, ...storedData.projectArrStored);
+    taskArr.splice(0, taskArr.length, ...storedData.taskArrStored);
+    init();
+};
+
 
 const taskForm = document.querySelector("#form-add-task");
 taskForm.addEventListener("submit", (evt) => {
@@ -85,6 +85,7 @@ taskForm.addEventListener("submit", (evt) => {
     toggleTaskModal();
     appendTask(taskArr, currProjectView.uuid);
     registerTaskIcons(taskArr, projectArr, currProjectView.uuid);
+    updateStorage();
 });
 
 const projectForm = document.querySelector("#form-add-project");
@@ -99,6 +100,7 @@ projectForm.addEventListener("submit", (evt) => {
     toggleProjectModal();
     appendProject(projectArr);
     registerProjectIcons(taskArr, projectArr, currProjectView.uuid);
+    updateStorage();
 });
 
 const projectList = document.querySelector(".project-list");
@@ -120,4 +122,53 @@ export function setCurrProjectView( index ) {
     currProjectView = projectArr[index];
 }
 
-  
+function storageAvailable(type) {
+  let storage;
+  try {
+    storage = window[type];
+    const x = "__storage_test__";
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  } catch (e) {
+    return (
+      e instanceof DOMException &&
+      e.name === "QuotaExceededError" &&
+      // acknowledge QuotaExceededError only if there's something already stored
+      storage &&
+      storage.length !== 0
+    );
+  }
+}
+
+function updateStorage() {
+    if(storageAvailable('localStorage')) {
+        localStorage.setItem("taskArr", JSON.stringify(taskArr));
+        localStorage.setItem("projectArr", JSON.stringify(projectArr));
+        console.log("stored!");
+    }
+}
+
+function retrieveStorage() {
+    if(storageAvailable('localStorage')) {
+        let taskArrStored = JSON.parse(localStorage.getItem("taskArr")) || [];
+        let projectArrStored = JSON.parse(localStorage.getItem("projectArr")) || [{ uuid: "p-default", title: "Default" }];
+        return { taskArrStored, projectArrStored };
+    }
+    return { taskArrStored: [], projectArrStored: [{ uuid: "p-default", title: "Default" }] };
+}
+
+function init() {
+    modalInit();
+    completedInit();
+    appendProject(projectArr);
+    appendTask(taskArr, projectArr[0].uuid);
+    initEditTaskForm(taskArr, projectArr, currProjectView);
+    initEditProjectForm(taskArr, currProjectView);
+    initMoveTaskForm(taskArr);
+    registerProjectIcons( taskArr, projectArr, currProjectView.uuid );
+    registerTaskIcons( taskArr, projectArr, currProjectView.uuid );
+    if(!localStorage.getItem("taskArr")) {
+        updateStorage();
+    }
+}
